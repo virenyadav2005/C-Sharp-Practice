@@ -10,7 +10,7 @@ namespace DemoApp
     }
 
     //Open for extension closed for modification like we can add another method of payment like :- PhonePay,Internet Banking
-    /LSV(Liskov Substitution Principle):- IPaymentProcessor can be used interchangeably with their base types.
+    //LSV(Liskov Substitution Principle):- IPaymentProcessor can be used interchangeably with their base types.
     public interface IPaymentProcessor
     {
         void ProcessPayment(decimal amount);
@@ -47,7 +47,7 @@ namespace DemoApp
     }
 
     
-    //Open for extension closed for modification like we can another method of sending notification like :- WhatsApp
+    //Open for extension closed for modification like we can add another method of sending notification like :- WhatsApp
     //LSV(Liskov Substitution Principle):- INotificationService can be used interchangeably with their base types.
     public interface INotificationService
     {
