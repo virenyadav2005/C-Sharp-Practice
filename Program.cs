@@ -2,18 +2,21 @@
 
 namespace DemoApp
 {
+    //Interface Seqregation principle :- like IProduct only for product data, IPaymentprocessor is only for payment and INotificationService is only for notifications 
     public interface IProduct
     {
         string Name { get; }
         decimal Price { get; }
-
     }
 
+    //Open for extension closed for modification like we can add another method of payment like :- PhonePay,Internet Banking
+    /LSV(Liskov Substitution Principle):- IPaymentProcessor can be used interchangeably with their base types.
     public interface IPaymentProcessor
     {
         void ProcessPayment(decimal amount);
     }
 
+    
     public interface ICreditCardPaymentProcessor : IPaymentProcessor { }
     public interface IPaytmPaymentProcessor : IPaymentProcessor { }
     public interface IUPIPaymentProcessor : IPaymentProcessor { }
@@ -43,10 +46,15 @@ namespace DemoApp
         }
     }
 
+    
+    //Open for extension closed for modification like we can another method of sending notification like :- WhatsApp
+    //LSV(Liskov Substitution Principle):- INotificationService can be used interchangeably with their base types.
     public interface INotificationService
     {
         public void SendNotification(string message);
     }
+
+    
     public class EmailNotificationService : INotificationService
     {
         public void SendNotification(string message)
@@ -55,6 +63,7 @@ namespace DemoApp
         }
     }
 
+    
     public class SMSNotificationService : INotificationService
     {
         public void SendNotification(string message)
@@ -64,7 +73,7 @@ namespace DemoApp
     }
 
 
-
+// Single Responsibility principle
     public class Product : IProduct
     {
         public string Name { get; private set; }
@@ -79,12 +88,14 @@ namespace DemoApp
     }
 
 
+
+// Single Responsiblity principle
     public class Order
     {
         public IProduct Product { get; private set; }
         public decimal TotalAmount => Product.Price;
 
-
+        //Order depends on IPaymentProcessor and INotificationService not on concrete implementations.
         private readonly IPaymentProcessor _paymentProcessor;
         private readonly INotificationService _notificationService;
 
